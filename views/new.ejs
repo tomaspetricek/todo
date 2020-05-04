@@ -1,12 +1,15 @@
 
 <%- include("./partials/header") %>
+<%- include("./partials/navigation") %>
 
-<h1>Create Task</h1>
-<form action="/todos" method="POST">
-	<div class="form-group mx-sm-3 my-1">
-		<input type="text" name=todo[title] placeholder="title">
-	</div>
-	<button type="submit" class="btn btn-primary mx-sm-3 my-1">Create</button>
-</form>
+<div class="container">
+	<h1>Create Task</h1>
+	<form action="/todos" method="POST">
+		<div class="form-group mx-sm-3 my-1">
+			<input class="form-control" type="text" name=todo[title] placeholder="title">
+		</div>
+		<button type="submit" class="btn btn-primary mx-sm-3 my-1">Create</button>
+	</form>
+</div>
 
 <%- include("./partials/footer") %>

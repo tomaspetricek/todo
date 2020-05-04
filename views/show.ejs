@@ -1,13 +1,16 @@
 <%- include("./partials/header") %>
 <%- include("./partials/navigation") %>
 
-<h1><%= todo.title %></h1>
-<p><%= todo.done %></p>
-<form action="/todos/<%= todo._id %>/edit" method="GET">
-	<button class="btn btn-primary mx-sm-3 my-1" type="submit">Edit</button>
-</form>
-<form id="delete" action="/todos/<%= todo._id %>?_method=DELETE" method="POST">
-	<button class="btn btn-danger mx-sm-3 my-1">Delete</button>
-</form>
-
+<div class="container">
+	<h1><%= todo.title %></h1>
+	<p><%= todo.done %></p>
+	<div class="btn-group btn-group-lg" role="group">
+		<form action="/todos/<%= todo._id %>/edit" method="GET">
+			<button class="btn btn-primary mx-sm-3 my-1" type="submit">Edit</button>
+		</form>
+		<form id="delete" action="/todos/<%= todo._id %>?_method=DELETE" method="POST">
+			<button class="btn btn-danger mx-sm-3 my-1">Delete</button>
+		</form>
+	</div>
+</div>
 <%- include("./partials/footer") %>
