@@ -2,5 +2,14 @@
 <%- include("./partials/navigation") %>
 
 <h1>Here are your todos</h1>
+<% todos.forEach(function(todo){ %>
+	<div>
+		<h1><%= todo.title %></h1>
+		<p><%= todo.done %></p>
+		<form action="/todos/<%= todo._id %>" method="GET">
+			<button class="btn btn-primary mx-sm-3 my-1" type="submit">Show</button>
+		</form>
+	</div>	
+<% }) %>
 
 <%- include("./partials/footer") %>

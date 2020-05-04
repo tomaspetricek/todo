@@ -6,7 +6,8 @@ const express = require("express"),
 	  passportLocalMongoose = require("passport-local-mongoose"),
 	  expressSanitizer = require("express-sanitizer"),
 	  methodOverride = require("method-override"),
-	  User = require("./models/user");
+	  User = require("./models/user"),
+	  Todo = require("./models/todo");
 
 // Connect to database
 mongoose.connect("mongodb://localhost/todos", {useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
@@ -34,6 +35,10 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//Todo.create({
+//	title: "Udělat semestrálku na WEAP",
+//});
 
 // <Routes>
 // Root route
@@ -78,7 +83,72 @@ app.get("/logout", function(req,res){
 // </Authentifications>
 // <Todos>
 app.get("/todos",isLoggedIn, function(req,res){
-	res.render("todos");
+	Todo.find({}, function(err,todos){
+		if(err){
+			console.log(err);
+		} else {
+			res.render("todos", {todos: todos});
+		}
+	});
+});
+
+// Create
+app.get("/todos/new", function(req,res){
+	res.render("new");
+});
+
+app.post("/todos", function(req,res){
+	Todo.create(req.body.todo,function(err,newTodo){
+		if(err){
+			res.render("new");
+		} else {
+			res.redirect("/todos")
+		}
+	});
+});
+
+// Show
+app.get("/todos/:id", function(req,res){
+	Todo.findById(req.params.id, function(err, foundTodo){
+		if(err){
+			res.redirect("/todos");
+		} else {
+			res.render("show", {todo: foundTodo});
+		}
+	});
+});
+
+// Edit
+app.get("/todos/:id/edit", function(req,res){
+	Todo.findById(req.params.id, function(err, foundTodo){
+		if(err){
+			res.redirect("/todos");
+		}else{
+			res.render("edit",{todo: foundTodo});
+		}
+	});
+});
+
+// Update
+app.put("/todos/:id", function(req,res){
+	Todo.findByIdAndUpdate(req.params.id, req.body.todo, function(err, updatedTodo){
+		if(err){
+			res.redirect("/todos");
+		} else { 
+			res.redirect("/todos/" + req.params.id);
+		}
+	});
+});
+
+// Delete
+app.delete("/todos/:id",function(req,res){
+	Todo.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			res.redirect("/todos");
+		}else{
+			res.redirect("/todos");
+		}
+	});
 });
 
 // </Todos>
