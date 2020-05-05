@@ -7,9 +7,14 @@
 
 .todo{
 	display: inline-flex;
+	justify-content: space-between;
 }
 
 .container{
 	display: flex;
 	flex-direction: column;
+}
+
+.done-todo{
+	display: none;
 }

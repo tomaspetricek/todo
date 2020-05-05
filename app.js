@@ -4,7 +4,6 @@ const express = require("express"),
 	  bodyParser = require("body-parser"),
 	  LocalStrategy = require("passport-local"),
 	  passportLocalMongoose = require("passport-local-mongoose"),
-	  expressSanitizer = require("express-sanitizer"),
 	  methodOverride = require("method-override"),
 	  User = require("./models/user"),
 	  Todo = require("./models/todo");
@@ -23,7 +22,6 @@ app.set("view engine","ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(methodOverride("_method"));
-app.use(expressSanitizer());
 app.use(require("express-session")({
 	secret: "Captain America can wield mjolnir",
 	resave: false,
@@ -134,7 +132,7 @@ app.put("/todos/:id", function(req,res){
 	Todo.findByIdAndUpdate(req.params.id, req.body.todo, function(err, updatedTodo){
 		if(err){
 			res.redirect("/todos");
-		} else { 
+		} else {
 			res.redirect("/todos/" + req.params.id);
 		}
 	});
