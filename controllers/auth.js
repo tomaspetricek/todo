@@ -1,5 +1,5 @@
-const xss = require('xss'),
-	  User = require('../models/user'),
+const User = require('../models/user'),
+	  expressSanitizer = require("express-sanitizer"),
 	  passport = require("passport");
 
 // REGISTER
@@ -11,7 +11,8 @@ exports.showRegistration = function(req,res){
 
 // Perform
 exports.performRegistration = function(req,res){
-	User.register(new User({username: xss(req.body.username)}), xss(req.body.password), function(err, user){
+	req.body = req.sanitize(req.body);
+	User.register(new User({username: req.body.username}), req.body.password, function(err, user){
 		if(err){
 			return res.render("/register");
 		}

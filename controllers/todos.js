@@ -1,5 +1,5 @@
-const xss = require('xss'),
-	  Todo = require('../models/todo');
+const Todo = require('../models/todo'),
+	  expressSanitizer = require("express-sanitizer");
 
 // Show All
 exports.showAllTodos = function(req,res){
@@ -18,13 +18,12 @@ exports.createTodo = function(req,res){
 }
 
 exports.saveTodo = function(req,res){
+	req.body.todo.body = req.sanitize(req.body.todo.body);
 	Todo.create(req.body.todo,function(err,newTodo){
 		if(err){
 			res.render("new");
-			console.log(err); //DELETE
 		} else {
 			res.redirect("/todos");
-			console.log(newTodo); //DELETE
 		}
 	});
 }
@@ -53,6 +52,7 @@ exports.editTodo = function(req,res){
 
 // Update
 exports.updateTodo = function(req,res){
+	req.body.todo.body = req.sanitize(req.body.todo.body);
 	Todo.findByIdAndUpdate(req.params.id, req.body.todo, function(err, updatedTodo){
 		if(err){
 			res.redirect("/todos");
