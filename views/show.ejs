@@ -3,7 +3,9 @@
 
 <div class="container">
 	<h1><%= todo.title %></h1>
-	<p><%= todo.done %></p>
+	<% if(todo.done != null){ %>
+		<p><%= todo.done.toDateString() %></p>
+	<% } %>
 	<div class="btn-group btn-group-lg" role="group">
 		<form action="/todos/<%= todo._id %>/edit" method="GET">
 			<button class="btn btn-primary mx-sm-3 my-1" type="submit">Edit</button>
