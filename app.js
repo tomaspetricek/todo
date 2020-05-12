@@ -16,12 +16,14 @@ var indexRouter = require('./routes/index'),
     apiRouter = require('./routes/api');
 
 // Connect to database
-mongoose.connect("mongodb://localhost/todos", {useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-  if (err)
-     console.error(err);
-  else
-     console.log("Connected to the mongodb"); 
-});
+let mongoDBUrl = process.env.MONGODB_URI || 'mongodb://localhost/todos';
+mongoose.connect(mongoDBUrl, {useNewUrlParser: true, useUnifiedTopology: true }, function(err){
+	if (err)
+	    console.error(err);
+	else
+	    console.log("Connected to the mongodb"); 
+	});
+mongoose.Promise = global.Promise;
 
 var app = express();
 // Set up app
@@ -48,10 +50,6 @@ app.use('/', authRouter);
 app.use('/todos', todosRouter);
 app.use('/api', apiRouter);
 
-//Todo.create({
-//	title: "Udělat semestrálku na WEAP",
-//});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -63,6 +61,6 @@ app.use(function(err, req, res, next) {
 });
 
 // Set up server
-app.listen(3000,function(){
+app.listen(process.env.PORT || 3000,function(){
 	console.log("Server is running");
 });

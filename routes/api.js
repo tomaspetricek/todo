@@ -10,7 +10,7 @@ router.get("/", auth.isLoggedIn, apiController.showApi)
 router.get("/todos/", auth.isLoggedIn, apiController.showAllTodos);
 
 // Show
-router.get("/todos/:d", apiController.showTodo);
+router.get("/todos/:d",  auth.isLoggedIn, apiController.showTodo);
 
 // Export routes
 module.exports = router;

@@ -14,7 +14,7 @@ exports.performRegistration = function(req,res){
 	req.body = req.sanitize(req.body);
 	User.register(new User({username: req.body.username}), req.body.password, function(err, user){
 		if(err){
-			return res.render("/register");
+			return res.render("register");
 		}
 		passport.authenticate("local")(req, res, function(){
 			res.redirect("/todos");

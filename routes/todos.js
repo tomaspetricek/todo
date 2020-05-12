@@ -7,22 +7,22 @@ const express = require('express'),
 router.get("/", auth.isLoggedIn, todoController.showAllTodos);
 
 // Create
-router.get("/new", todoController.createTodo);
+router.get("/new", auth.isLoggedIn, todoController.createTodo);
 
 //Save
-router.post("/", todoController.saveTodo);
+router.post("/", auth.isLoggedIn, todoController.saveTodo);
 
 // Show
-router.get("/:id", todoController.showTodo);
+router.get("/:id", auth.isLoggedIn, todoController.showTodo);
 
 // Edit
-router.get("/:id/edit", todoController.editTodo);
+router.get("/:id/edit", auth.isLoggedIn, todoController.editTodo);
 
 // Update
-router.put("/:id", todoController.updateTodo);
+router.put("/:id", auth.isLoggedIn, todoController.updateTodo);
 
 // Delete
-router.delete("/:id", todoController.deleteTodo);
+router.delete("/:id", auth.isLoggedIn, todoController.deleteTodo);
 
 // Export routes
 module.exports = router;
