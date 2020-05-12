@@ -1,6 +1,6 @@
 const express = require('express'),
 	  router = express.Router(),
-	  auth = require('../auth');
+	  auth = require('../auth'),
 	  todoController = require('../controllers/todos');
 
 // Show All

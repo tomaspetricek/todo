@@ -12,7 +12,8 @@ const express = require("express"),
 
 var indexRouter = require('./routes/index'),
 	todosRouter = require('./routes/todos'),
-    authRouter = require('./routes/auth');
+    authRouter = require('./routes/auth'),
+    apiRouter = require('./routes/api');
 
 // Connect to database
 mongoose.connect("mongodb://localhost/todos", {useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
@@ -45,6 +46,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/todos', todosRouter);
+app.use('/api', apiRouter);
 
 //Todo.create({
 //	title: "Udělat semestrálku na WEAP",

@@ -1,0 +1,15 @@
+<%- include("./partials/header") %>
+<%- include("./partials/navigation") %>
+
+<div class="container">
+	<h1>Welcome to the API</h1>
+	<h2>Example of how the API works</h2>
+	<p>Button underneath shows what would have happened
+	if you sent a GET request on URL:</p>
+	<p><strong>"domain"/api/todos</strong></p>
+	<form action="/api/todos" method="GET">
+		<button class="btn btn-primary mx-sm-3 my-1" type="submit">Get</button>
+	</form>
+</div>
+
+<%- include("./partials/footer") %>
